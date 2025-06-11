@@ -55,7 +55,7 @@ mojaKrotka = (1, "Haskell", True)
 ```
 
 ## Wzorce (Pattern matching)
-### Wzorce to potężna cecha Haskella, która pozwala na definiowanie funkcji w zależności od struktury danych wejściowych.
+### Wzorce pozwalają na definiowanie funkcji w zależności od struktury danych wejściowych.
 ```
 -- Przykład funkcji, która zwraca długość listy (bez użycia wbudowanej funkcji length)
 dlugosc :: [a] -> Int
@@ -68,7 +68,7 @@ dlugosc (_:xs) = 1 + dlugosc xs -- Dla listy niepustej (głowa ignorowana, operu
 ```
 
 ## Funkcje Wyższego Rzędu (Higher-Order Functions)
-### Funkcje wyższego rzędu to takie, które mogą przyjmować inne funkcje jako argumenty lub zwracać je jako wyniki. To kluczowa cecha programowania funkcyjnego.
+### Funkcje wyższego rzędu mogą przyjmować inne funkcje jako argumenty lub zwracać je jako wyniki.
 `map` stosuje daną funkcję do każdego elementu listy.
 ```
 -- Przykład: pomnóż każdy element listy przez 2
