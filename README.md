@@ -25,22 +25,17 @@ main = do
 ### Listy to jednorodne kolekcje elementów.
 
 ```
-mojaLista :: [Int]
-mojaLista = [1, 2, 3, 4, 5]
-
--- Konkatenacja list
--- [1,2] ++ [3,4] -- zwróci [1,2,3,4]
-
--- Dostęp do głowy (head) i ogona (tail) listy
--- head [1,2,3] -- zwróci 1
--- tail [1,2,3] -- zwróci [2,3]
-
--- Dodawanie elementu na początek listy (operator konsa)
--- 0 : [1,2,3] -- zwróci [0,1,2,3]
-
--- Generowanie list (list comprehension)
--- [x*2 | x <- [1..5]] -- zwróci [2,4,6,8,10]
--- [x | x <- [1..10], x `mod` 2 == 0] -- zwróci [2,4,6,8,10] (liczby parzyste)
+xs = [1,2,3,4,5]
+head xs     -- 1
+tail xs     -- [2,3,4,5]
+length xs   -- 5
+sum xs      -- 15
+```
+#### Zakresy i leniwość
+```
+[1..10]           -- [1,2,3,...,10]
+[1,3..9]          -- [1,3,5,7,9]
+take 5 [1..]      -- [1,2,3,4,5] (lista nieskończona)
 ```
 
 ## Tuples (Krotki)
