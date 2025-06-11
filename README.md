@@ -101,5 +101,5 @@ import Data.List -- Importuje moduł Data.List
 -- sort [3,1,2] -- zwróci [1,2,3]
 ```
 
-## Prolog
+# Prolog
 coming soon xd
