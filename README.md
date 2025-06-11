@@ -1,4 +1,12 @@
 # Haskell
+## Komentarze
+-- Komentarz jednolinijkowy
+{-
+    To jest
+    komentarz
+    wielolinijkowy
+-}
+
 ## Funkcje
 ```
 addMe :: Integer -> Integer -> Integer
