@@ -2,6 +2,7 @@
 ## Komentarze
 ```
 -- Komentarz jednolinijkowy
+
 {-
     To jest
     komentarz
