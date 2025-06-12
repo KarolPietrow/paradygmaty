@@ -176,3 +176,27 @@ dziadek(X, Y) :-
 ```
 ?- dziadek(anna, tomek).   % true
 ```
+
+
+
+
+kolorwanie grafu 1 (nie wiem czy dobrze)
+```
+:- use_module(library(clpfd)).
+
+kolorowanie_wojewodztw(Kolory) :-
+    Kolory = [Podkarpackie, Lubelskie, Mazowieckie, Podlaskie, WarminskoMazurskie],
+    Kolory ins 1..3,  % 1=czerwony, 2=zielony, 3=niebieski (dowolne kolory)
+    
+    % Ograniczenia sąsiedztwa:
+    Podkarpackie #\= Lubelskie,     % Podkarpackie sąsiaduje z Lubelskim
+    Lubelskie #\= Mazowieckie,      % Lubelskie sąsiaduje z Mazowieckim
+    Mazowieckie #\= Podlaskie,      % Mazowieckie sąsiaduje z Podlaskim
+    Podlaskie #\= WarminskoMazurskie, % Podlaskie sąsiaduje z Warmińsko-Mazurskim
+    Mazowieckie #\= WarminskoMazurskie, % Mazowieckie sąsiaduje z Warmińsko-Mazurskim
+    
+    label(Kolory). % Znajdowanie konkretnych wartości kolorów
+
+% Przykładowe zapytanie: 
+% ?- kolorowanie_wojewodztw([Pk, Lu, Mz, Pd, Wm]).
+```
