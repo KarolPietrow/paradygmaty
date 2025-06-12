@@ -1,4 +1,6 @@
 # Haskell
+Online IDE
+https://play.haskell.org
 ## Komentarze
 ```
 -- Komentarz jednolinijkowy
@@ -100,19 +102,77 @@ sumList :: [Int] -> Int
 sumList [] = 0                -- przypadek pustej listy
 sumList (x:xs) = x + sumList xs  -- x to pierwszy element, xs to reszta listy
 ```
-
-```
 `foldr` (reduce / right fold) "zwija" listę do pojedynczej wartości, stosując funkcję od prawej do lewej.
 ```
 -- Przykład: suma elementów listy
 sumaElementow :: [Int] -> Int
 sumaElementow lista = foldr (+) 0 lista
 --foldr (+) 0 [1,2,3] działa tak: 1 + (2 + (3 + 0))
-
 -- Użycie:
 -- sumaElementow [1,2,3] -- zwróci 6
 ```
 `foldl` działa od lewej do prawej.
 
 # Prolog
-coming soon xd
+Online IDE
+https://swish.swi-prolog.org
+### Komentarze
+```
+% To jest komentarz
+```
+### Fakty - stwierdzenia o świecie.
+```
+kot(mruczek).
+pies(reksio).
+lubi(ala, koty).
+```
+### Reguły - warunkowe zależności
+```
+zwierze(X) :- kot(X).
+zwierze(X) :- pies(X).
+```
+### Zapytania - pytania o fakty i reguły.
+```
+?- kot(mruczek).         % true
+?- zwierze(reksio).      % true
+?- lubi(ala, X).         % X = koty
+```
+### Zmienne i stałe
+Stała - zaczyna się małą literą (ala, pies)
+Zmienna - zaczyna się dużą literą (X, Kto)
+```
+przyjaciel(ala, basia).
+przyjaciel(basia, kasia).
+
+?- przyjaciel(ala, Kto).  % Kto = basia
+```
+
+### Rekurencje
+Prolog nie ma pętli, używa rekurencji
+```
+dlugosc([], 0).
+dlugosc([_|Ogon], Dlugosc) :-
+    dlugosc(Ogon, D),
+    Dlugosc is D + 1.
+```
+### Operacje na listach
+```
+czlonek(X, [X|_]).         % X jest na początku listy
+czlonek(X, [_|Ogon]) :-    % lub w ogonie
+    czlonek(X, Ogon).
+```
+```
+?- czlonek(3, [1,2,3,4]).  % true
+```
+### Zagadki logiczne
+```
+rodzic(anna, jan).
+rodzic(jan, tomek).
+
+dziadek(X, Y) :- 
+    rodzic(X, Z), 
+    rodzic(Z, Y).
+```
+```
+?- dziadek(anna, tomek).   % true
+```
