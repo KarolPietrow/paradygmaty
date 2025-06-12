@@ -177,73 +177,55 @@ dziadek(X, Y) :-
 ?- dziadek(anna, tomek).   % true
 ```
 
-
-
-
-kolorwanie grafu 1 (nie wiem czy dobrze)
+### Kolorowanie grafu
+Wersja 1
 ```
-:- use_module(library(clpfd)).
+kolor(green).
+kolor(red).
+kolor(blue).
 
-kolorowanie_wojewodztw(Kolory) :-
-    Kolory = [Podkarpackie, Lubelskie, Mazowieckie, Podlaskie, WarminskoMazurskie],
-    Kolory ins 1..3,  % 1=czerwony, 2=zielony, 3=niebieski (dowolne kolory)
-    
-    % Ograniczenia sąsiedztwa:
-    Podkarpackie #\= Lubelskie,     % Podkarpackie sąsiaduje z Lubelskim
-    Lubelskie #\= Mazowieckie,      % Lubelskie sąsiaduje z Mazowieckim
-    Mazowieckie #\= Podlaskie,      % Mazowieckie sąsiaduje z Podlaskim
-    Podlaskie #\= WarminskoMazurskie, % Podlaskie sąsiaduje z Warmińsko-Mazurskim
-    Mazowieckie #\= WarminskoMazurskie, % Mazowieckie sąsiaduje z Warmińsko-Mazurskim
-    
-    label(Kolory). % Znajdowanie konkretnych wartości kolorów
+vertices([a,b,c,d,e]).
 
-% Przykładowe zapytanie: 
-% ?- kolorowanie_wojewodztw([Pk, Lu, Mz, Pd, Wm]).
+edge(a,b).
+edge(a,c).
+edge(b,a).
+edge(b,c).
+edge(b,d).
+edge(c,a).
+edge(c,b).
+edge(d,b).
+edge(d,e).
+edge(e,d).
+
+% ---------- Sprawdzanie sąsiedztwa ----------
+adjacent(U, V) :-
+    edge(U, V) ;
+    edge(V, U).
+
+% ---------- Przypisywanie kolorów: generowanie wszystkich kombinacji ----------
+assign_colors([], []).
+assign_colors([V|Vs], [V-C | Rest]) :-
+    kolor(C),
+    assign_colors(Vs, Rest).
+
+% ---------- Sprawdzenie, czy dane przypisanie jest poprawne względem krawędzi ----------
+valid_coloring([]).
+valid_coloring([_]).
+valid_coloring([U-C | Rest]) :-
+    check_no_conflict(U, C, Rest),
+    valid_coloring(Rest).
+
+check_no_conflict(_, _, []).
+check_no_conflict(U, C, [V-Cv | T]) :-
+    (   adjacent(U, V)
+    ->  C \= Cv
+    ;   true
+    ),
+    check_no_conflict(U, C, T).
+
+% ---------- Predykat główny: kolorowanie grafu ----------
+koloruj(Coloring) :-
+    vertices(Vs),
+    assign_colors(Vs, Coloring),
+    valid_coloring(Coloring).
 ```
-
-
-
-
-
-% mapa.pl
-
-% 1. Definicja bazowego sąsiedztwa
-sasiad_base(podkarpackie, lubelskie).
-sasiad_base(lubelskie, mazowieckie).
-sasiad_base(mazowieckie, podlaskie).
-sasiad_base(podlaskie, warminsko_mazurskie).
-
-% 2. Symetryczne sasiad/2
-sasiad(X, Y) :- sasiad_base(X, Y).
-sasiad(X, Y) :- sasiad_base(Y, X).
-
-% 3. Dostępne kolory
-kolor(czerwony).
-kolor(zielony).
-kolor(niebieski).
-
-% 4. Predykat kolorujący
-koloruj([
-    podkarpackie-C1,
-    lubelskie-C2,
-    mazowieckie-C3,
-    podlaskie-C4,
-    warminsko_mazurskie-C5
-]) :-
-    kolor(C1),
-    kolor(C2),
-    kolor(C3),
-    kolor(C4),
-    kolor(C5),
-    % warunek: sąsiedzi różne kolory
-    C1 \= C2,
-    C2 \= C3,
-    C3 \= C4,
-    C4 \= C5.
-
-% Opcjonalnie: pomocnicze do ładnego wypisywania
-pokaz_kolory([]).
-pokaz_kolory([Woj-Kol|T]) :-
-    format('~w: ~w~n', [Woj, Kol]),
-    pokaz_kolory(T).
-
