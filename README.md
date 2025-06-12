@@ -37,8 +37,42 @@ sum xs      -- 15
 [1,3..9]          -- [1,3,5,7,9]
 take 5 [1..]      -- [1,2,3,4,5] (lista nieskończona)
 ```
+#### Łączenie list
+```
+[1,2] ++ [3,4]         -- [1,2,3,4]
+'a' : "bc"             -- "abc"
+```
+#### Dostęp do elementów
+```
+[1,2,3] !! 0           -- 1
+[1,2,3] !! 2           -- 3
+```
+#### Listy wyrozumowane (list comprehensions)
+```
+[ <wyrażenie> | <zmienna> <- <lista>, <warunek1>, <warunek2>, ... ]
 
-## Tuples (Krotki)
+[x * 2 | x <- [1..5]]
+-- Wynik: [2,4,6,8,10]
+
+[x | x <- [1..10], even x]
+-- Wynik: [2,4,6,8,10]
+
+[(x, y) | x <- [1,2], y <- [3,4]]
+-- Wynik: [(1,3),(1,4),(2,3),(2,4)]
+
+take 5 [x^2 | x <- [1..]]
+-- Wynik: [1,4,9,16,25]
+```
+
+## Funkcje Wyższego Rzędu (Higher-Order Functions)
+### Przyjmuje inną funkcję jako argument lub zwraca funkcję jako wynik.
+`map` stosuje daną funkcję do każdego elementu listy.
+```
+map (*2) [1,2,3]
+-- Wynik: [2,4,6]
+```
+
+## Krotki (Tuples)
 ### Tuples przechowują stałą liczbę elementów różnych typów.
 ```
 mojaKrotka :: (Int, String, Bool)
@@ -47,6 +81,13 @@ mojaKrotka = (1, "Haskell", True)
 -- Dostęp do elementów krotki
 -- fst (1, "Hello") -- zwróci 1
 -- snd (1, "Hello") -- zwróci "Hello"
+```
+#### Krotki jako elementy list
+```
+[(1, "a"), (2, "b"), (3, "c")]
+
+map fst [(1, "a"), (2, "b")]   -- [1,2]
+map snd [(1, "a"), (2, "b")]   -- ["a","b"]
 ```
 
 ## Wzorce (Pattern matching)
@@ -62,18 +103,6 @@ dlugosc (_:xs) = 1 + dlugosc xs -- Dla listy niepustej (głowa ignorowana, operu
 -- dlugosc []      -- zwróci 0
 ```
 
-## Funkcje Wyższego Rzędu (Higher-Order Functions)
-### Funkcje wyższego rzędu mogą przyjmować inne funkcje jako argumenty lub zwracać je jako wyniki.
-`map` stosuje daną funkcję do każdego elementu listy.
-```
--- Przykład: pomnóż każdy element listy przez 2
-pomnozPrzezDwa :: [Int] -> [Int]
-pomnozPrzezDwa lista = map (\x -> x * 2) lista
--- lub krócej: pomnozPrzezDwa = map (*2)
-
--- Użycie:
--- pomnozPrzezDwa [1,2,3] -- zwróci [2,4,6]
-```
 `\x -> x * 2` to funkcja anonimowa (lambda).
 
 `filter` wybiera elementy z listy, które spełniają dany predykat (funkcję zwracającą `Bool`).
@@ -97,15 +126,6 @@ sumaElementow lista = foldr (+) 0 lista
 -- sumaElementow [1,2,3] -- zwróci 6
 ```
 `foldl` działa od lewej do prawej.
-
-## Moduły
-### Haskell używa modułów do organizacji kodu. Możesz importować funkcje z innych modułów.
-```
-import Data.List -- Importuje moduł Data.List
-
--- Możesz teraz używać funkcji takich jak sort, nub (usuwa duplikaty) itp.
--- sort [3,1,2] -- zwróci [1,2,3]
-```
 
 # Prolog
 coming soon xd
