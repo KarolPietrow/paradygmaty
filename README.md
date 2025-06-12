@@ -200,3 +200,50 @@ kolorowanie_wojewodztw(Kolory) :-
 % Przykładowe zapytanie: 
 % ?- kolorowanie_wojewodztw([Pk, Lu, Mz, Pd, Wm]).
 ```
+
+
+
+
+
+% mapa.pl
+
+% 1. Definicja bazowego sąsiedztwa
+sasiad_base(podkarpackie, lubelskie).
+sasiad_base(lubelskie, mazowieckie).
+sasiad_base(mazowieckie, podlaskie).
+sasiad_base(podlaskie, warminsko_mazurskie).
+
+% 2. Symetryczne sasiad/2
+sasiad(X, Y) :- sasiad_base(X, Y).
+sasiad(X, Y) :- sasiad_base(Y, X).
+
+% 3. Dostępne kolory
+kolor(czerwony).
+kolor(zielony).
+kolor(niebieski).
+
+% 4. Predykat kolorujący
+koloruj([
+    podkarpackie-C1,
+    lubelskie-C2,
+    mazowieckie-C3,
+    podlaskie-C4,
+    warminsko_mazurskie-C5
+]) :-
+    kolor(C1),
+    kolor(C2),
+    kolor(C3),
+    kolor(C4),
+    kolor(C5),
+    % warunek: sąsiedzi różne kolory
+    C1 \= C2,
+    C2 \= C3,
+    C3 \= C4,
+    C4 \= C5.
+
+% Opcjonalnie: pomocnicze do ładnego wypisywania
+pokaz_kolory([]).
+pokaz_kolory([Woj-Kol|T]) :-
+    format('~w: ~w~n', [Woj, Kol]),
+    pokaz_kolory(T).
+
