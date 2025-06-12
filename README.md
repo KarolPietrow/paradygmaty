@@ -100,28 +100,7 @@ sumList :: [Int] -> Int
 sumList [] = 0                -- przypadek pustej listy
 sumList (x:xs) = x + sumList xs  -- x to pierwszy element, xs to reszta listy
 ```
-```
--- Przykład funkcji, która zwraca długość listy (bez użycia wbudowanej funkcji length)
-dlugosc :: [a] -> Int
-dlugosc [] = 0 -- Dla pustej listy, długość to 0
-dlugosc (_:xs) = 1 + dlugosc xs -- Dla listy niepustej (głowa ignorowana, operujemy na ogonie)
 
--- Użycie:
--- dlugosc [1,2,3] -- zwróci 3
--- dlugosc []      -- zwróci 0
-```
-
-`\x -> x * 2` to funkcja anonimowa (lambda).
-
-`filter` wybiera elementy z listy, które spełniają dany predykat (funkcję zwracającą `Bool`).
-```
--- Przykład: wybierz tylko parzyste liczby z listy
-tylkoParzyste :: [Int] -> [Int]
-tylkoParzyste lista = filter (\x -> x `mod` 2 == 0) lista
--- lub krócej: tylkoParzyste = filter even
-
--- Użycie:
--- tylkoParzyste [1,2,3,4,5,6] -- zwróci [2,4,6]
 ```
 `foldr` (reduce / right fold) "zwija" listę do pojedynczej wartości, stosując funkcję od prawej do lewej.
 ```
