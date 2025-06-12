@@ -33,6 +33,19 @@ tail xs     -- [2,3,4,5]
 length xs   -- 5
 sum xs      -- 15
 ```
+#### Długość listy rekurencyjnie
+```
+lengthList :: [Integer] -> Integer
+lengthList [] = 0
+lengthList (x:xs) = 1 + lengthList xs
+```
+#### Spłaszczanie zagnieżdzonej listy
+```
+flatten :: [[Integer]] -> [Integer]
+flatten [] = []
+flatten (x:xs) = x ++ flatten xs
+```
+
 #### Zakresy i leniwość
 ```
 [1..10]           -- [1,2,3,...,10]
