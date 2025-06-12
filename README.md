@@ -92,6 +92,14 @@ map snd [(1, "a"), (2, "b")]   -- ["a","b"]
 
 ## Wzorce (Pattern matching)
 ### Wzorce pozwalają na definiowanie funkcji w zależności od struktury danych wejściowych.
+`x` – reprezentuje pierwszy element listy (głowę),
+`xs` – reprezentuje pozostałe elementy listy (ogon).
+```
+-- Funkcja obliczająca sumę elementów listy
+sumList :: [Int] -> Int
+sumList [] = 0                -- przypadek pustej listy
+sumList (x:xs) = x + sumList xs  -- x to pierwszy element, xs to reszta listy
+```
 ```
 -- Przykład funkcji, która zwraca długość listy (bez użycia wbudowanej funkcji length)
 dlugosc :: [a] -> Int
